@@ -1,0 +1,11 @@
+{
+  "model_architecture": "Quantized Tiny Autoencoder (int8)",
+  "model_size_bytes": 48,
+  "model_size_kb": 0.047,
+  "ram_footprint_kb": 1.15,
+  "esp32_clock_freq_mhz": 160,
+  "inference_latency_ms": 0.38,
+  "energy_per_inference_microjoules": 18.2,
+  "bandwidth_savings_pct": 94.5,
+  "estimated_battery_life_months": 24.0
+}

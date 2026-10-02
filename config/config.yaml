@@ -1,0 +1,219 @@
+project:
+  name: "SkyGuard AI"
+  title: "Intelligent Real-Time Anomaly Detection System for AWS"
+  problem_statement: "SIH 26073 - Ministry of Earth Sciences (MoES) / IMD"
+  version: "1.0.0"
+
+thresholds:
+  wmo_physical_limits:
+    temperature:
+      min: -40.0
+      max: 60.0
+    pressure:
+      min: 500.0
+      max: 1085.0
+    humidity:
+      min: 0.0
+      max: 100.0
+  rate_of_change:
+    temperature_max_step_1h: 6.0    # °C per hour
+    pressure_max_step_1h: 4.0       # hPa per hour (thunderstorm/cyclone can have ~3-4)
+    humidity_max_step_1h: 35.0      # % per hour
+  persistence:
+    max_identical_steps: 6          # 6 consecutive identical readings flags frozen sensor
+    epsilon: 0.001
+  physics:
+    lapse_rate_c_per_km: 6.5
+    barometric_scale_height_m: 8434.5
+    sea_level_standard_pressure_hpa: 1013.25
+
+ensemble:
+  weights:
+    rules: 0.25
+    temporal: 0.25
+    multivariate: 0.25
+    spatial: 0.25
+  alert_thresholds:
+    low: 0.40
+    medium: 0.65
+    high: 0.85
+    critical: 0.95
+  hysteresis_cooldown_minutes: 15
+
+health:
+  initial_score: 100.0
+  drift_cusum_threshold: 4.5
+  frozen_penalty: 15.0
+  spike_penalty: 5.0
+  missing_penalty: 10.0
+  recovery_rate_per_hour: 2.0
+
+stations:
+  - id: "AWS_PUN"
+    name: "Pune Station"
+    state: "Maharashtra"
+    latitude: 18.5204
+    longitude: 73.8567
+    elevation_m: 560
+    normal_temp_range: [12.0, 42.0]
+  - id: "AWS_BOM"
+    name: "Mumbai Station"
+    state: "Maharashtra"
+    latitude: 19.0760
+    longitude: 72.8777
+    elevation_m: 14
+    normal_temp_range: [15.0, 39.0]
+  - id: "AWS_NSK"
+    name: "Nashik Station"
+    state: "Maharashtra"
+    latitude: 19.9975
+    longitude: 73.7898
+    elevation_m: 584
+    normal_temp_range: [10.0, 41.0]
+  - id: "AWS_KLP"
+    name: "Kolhapur Station"
+    state: "Maharashtra"
+    latitude: 16.7050
+    longitude: 74.2433
+    elevation_m: 569
+    normal_temp_range: [14.0, 40.0]
+  - id: "AWS_NGP"
+    name: "Nagpur Station"
+    state: "Maharashtra"
+    latitude: 21.1458
+    longitude: 79.0882
+    elevation_m: 310
+    normal_temp_range: [10.0, 48.0]
+  - id: "AWS_IXU"
+    name: "Aurangabad Station"
+    state: "Maharashtra"
+    latitude: 19.8762
+    longitude: 75.3433
+    elevation_m: 568
+    normal_temp_range: [10.0, 43.0]
+  - id: "AWS_DEL"
+    name: "Delhi Station"
+    state: "Delhi"
+    latitude: 28.6139
+    longitude: 77.2090
+    elevation_m: 216
+    normal_temp_range: [4.0, 47.0]
+  - id: "AWS_JAI"
+    name: "Jaipur Station"
+    state: "Rajasthan"
+    latitude: 26.9124
+    longitude: 75.7873
+    elevation_m: 431
+    normal_temp_range: [5.0, 46.0]
+  - id: "AWS_AMD"
+    name: "Ahmedabad Station"
+    state: "Gujarat"
+    latitude: 23.0225
+    longitude: 72.5714
+    elevation_m: 53
+    normal_temp_range: [12.0, 45.0]
+  - id: "AWS_BHO"
+    name: "Bhopal Station"
+    state: "Madhya Pradesh"
+    latitude: 23.2599
+    longitude: 77.4126
+    elevation_m: 527
+    normal_temp_range: [9.0, 44.0]
+  - id: "AWS_BLR"
+    name: "Bengaluru Station"
+    state: "Karnataka"
+    latitude: 12.9716
+    longitude: 77.5946
+    elevation_m: 920
+    normal_temp_range: [14.0, 38.0]
+  - id: "AWS_HYD"
+    name: "Hyderabad Station"
+    state: "Telangana"
+    latitude: 17.3850
+    longitude: 78.4867
+    elevation_m: 505
+    normal_temp_range: [13.0, 43.0]
+  - id: "AWS_MAA"
+    name: "Chennai Station"
+    state: "Tamil Nadu"
+    latitude: 13.0827
+    longitude: 80.2707
+    elevation_m: 7
+    normal_temp_range: [19.0, 42.0]
+  - id: "AWS_CCU"
+    name: "Kolkata Station"
+    state: "West Bengal"
+    latitude: 22.5726
+    longitude: 88.3639
+    elevation_m: 9
+    normal_temp_range: [12.0, 41.0]
+  - id: "AWS_BBI"
+    name: "Bhubaneswar Station"
+    state: "Odisha"
+    latitude: 20.2961
+    longitude: 85.8245
+    elevation_m: 45
+    normal_temp_range: [13.0, 43.0]
+  - id: "AWS_PAT"
+    name: "Patna Station"
+    state: "Bihar"
+    latitude: 25.5941
+    longitude: 85.1376
+    elevation_m: 53
+    normal_temp_range: [7.0, 44.0]
+  - id: "AWS_IXR"
+    name: "Ranchi Station"
+    state: "Jharkhand"
+    latitude: 23.3441
+    longitude: 85.3096
+    elevation_m: 651
+    normal_temp_range: [8.0, 42.0]
+  - id: "AWS_LKO"
+    name: "Lucknow Station"
+    state: "Uttar Pradesh"
+    latitude: 26.8467
+    longitude: 80.9462
+    elevation_m: 123
+    normal_temp_range: [6.0, 45.0]
+  - id: "AWS_GAU"
+    name: "Guwahati Station"
+    state: "Assam"
+    latitude: 26.1445
+    longitude: 91.7362
+    elevation_m: 55
+    normal_temp_range: [9.0, 39.0]
+  - id: "AWS_TRV"
+    name: "Thiruvananthapuram Station"
+    state: "Kerala"
+    latitude: 8.5241
+    longitude: 76.9366
+    elevation_m: 10
+    normal_temp_range: [20.0, 36.0]
+  - id: "AWS_SLV"
+    name: "Shimla Station"
+    state: "Himachal Pradesh"
+    latitude: 31.1048
+    longitude: 77.1734
+    elevation_m: 2276
+    normal_temp_range: [-4.0, 30.0]
+  - id: "AWS_SXR"
+    name: "Srinagar Station"
+    state: "Jammu & Kashmir"
+    latitude: 34.0837
+    longitude: 74.7973
+    elevation_m: 1585
+    normal_temp_range: [-6.0, 34.0]
+  - id: "AWS_IXL"
+    name: "Leh Station"
+    state: "Ladakh"
+    latitude: 34.1526
+    longitude: 77.5771
+    elevation_m: 3524
+    normal_temp_range: [-20.0, 32.0]
+  - id: "AWS_GOI"
+    name: "Goa Station"
+    state: "Goa"
+    latitude: 15.2993
+    longitude: 74.1240
+    elevation_m: 54
+    normal_temp_range: [18.0, 37.0]
